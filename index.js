@@ -6,9 +6,13 @@ require('dotenv').config();
 const app = express();
 
 
+
+
 //Directorio publico 
 app.use(express.static('public'));
 
+// Read and cast json inputs
+app.use( express.json() );
 
 // routes
 app.use('/api/auth', require('./routes/auth') );
