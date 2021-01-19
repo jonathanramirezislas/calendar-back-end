@@ -1,11 +1,15 @@
 const express = require('express');
 require('dotenv').config();
 
+const { dbConnection } = require('./database/config');
+
 
 //Crete express server
 const app = express();
 
 
+// connection db
+dbConnection();
 
 
 //Directorio publico 
