@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 
 
-const createUser= async (req , res = response ) => {
+const createUser = async (req , res = response ) => {
 
     const { email, password } = req.body;
 
@@ -44,11 +44,45 @@ const createUser= async (req , res = response ) => {
 }
 
 
-const loginUser= (req , res = response ) => {
-    res.json({
-        ok:true,
-        msg:'get'
-    })
+const loginUser = async(req, res = response ) => {
+    const { email, password } = req.body;
+
+    try {
+        
+        const usuario = await Usuario.findOne({ email });
+
+        //check if there is a user with that email
+        if ( !usuario ) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Check (email) or password'
+            });
+        }
+
+        // check if there if matches de password input and database
+        const validPassword = bcrypt.compareSync( password, usuario.password ); //compare passwords
+        if ( !validPassword ) { 
+            return res.status(400).json({
+                ok: false,
+                msg: 'Check email or (password)' 
+            });
+        }
+
+
+        res.json({
+            ok: true,
+            uid: usuario.id,
+            name: usuario.name,
+        })
+
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error from server'
+        });
+    }
 }
 
 
