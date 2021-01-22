@@ -1,4 +1,4 @@
-const { response } = require('express');
+const { response } = require('express'); //only to have the help of typed 
 const { validationResult } = require('express-validator');
 
 const validatefields = (req, res = response, next) => {

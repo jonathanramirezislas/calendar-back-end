@@ -11,7 +11,8 @@ const { check } = require('express-validator');
 const { validatefields } = require('../middlewares/fields-validator');
 
 
-const {createUser, loginUser ,revalidateToken} = require('../controllers/auth')
+const {createUser, loginUser ,revalidateToken} = require('../controllers/auth');
+const { validarJWT } = require('../middlewares/validar-jwt');
 
 //loginuser
 router.post('/',
@@ -32,8 +33,11 @@ router.post('/new',
     ], 
     createUser );
 
-        
-router.get('/renew', revalidateToken)
+// renew token 
+    router.get('/renew',
+    //middleware
+    validarJWT ,
+    revalidateToken );
 
     
 
