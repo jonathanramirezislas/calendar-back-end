@@ -13,18 +13,19 @@ const { validatefields } = require('../middlewares/fields-validator');
 
 const {createUser, loginUser ,revalidateToken} = require('../controllers/auth')
 
+//loginuser
 router.post('/',
     [ // middlewares to check vales from the request
-    check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('email', 'El email es obligatorio').isEmail(),
     check('password', 'El password debe de contener minimo 6 caracteres').isLength({ min: 6 }),
     validatefields
     ], 
     loginUser );
 
-
+//create user
 router.post('/new',
     [
+    check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('email', 'El email es obligatorio').isEmail(),
     check('password', 'El password debe de contener minimo 6 caracteres').isLength({ min: 6 }),
     validatefields
