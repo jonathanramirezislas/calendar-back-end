@@ -12,9 +12,10 @@ const { getEventos, crearEvento, actualizarEvento, eliminarEvento } = require('.
 
 const router = Router();
 
-// each route has to pass JWT
-router.use( validarJWT );
+// each route has to pass JWT other way to do this is router.post('/route',validarJWT, controller) 
+//NOTE if you dont want to use some routes with JWT put above  ↑ of route.use 
 
+router.use( validarJWT );
 
 // Get events
 router.get('/', getEventos );
@@ -37,6 +38,7 @@ router.put(
     [
         check('title','Title is required').not().isEmpty(),
         check('start', 'Start date is required').custom( isDate ),
+        //field, msg ,custom(function)
         check('end', 'End date is required').custom( isDate ),
         validatefields
     ],
