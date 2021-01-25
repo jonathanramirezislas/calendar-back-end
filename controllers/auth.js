@@ -22,7 +22,7 @@ const createUser = async (req , res = response ) => {
         }
         //
         user = new User( req.body );
-    
+
         // encrypt password
         const salt = bcrypt.genSaltSync();
         user.password = bcrypt.hashSync( password, salt );
@@ -30,7 +30,7 @@ const createUser = async (req , res = response ) => {
         // Generate JWT
         const token = await generarJWT( user.id, user.name );
 
-        //save user 
+        //save user
         await user.save();
         res.status(201).json({
             ok: true,
@@ -39,14 +39,14 @@ const createUser = async (req , res = response ) => {
             token
         })
 
-         
-        
+
+
     } catch (error) {
         console.log(error)
         res.status(500).json({
             ok: false,
             msg: 'Error from server',
-            
+
         });
     }
 }
@@ -57,7 +57,7 @@ const loginUser = async(req, res = response ) => {
     const { email, password } = req.body;
 
     try {
-        
+
         const user = await User.findOne({ email });
 
         //check if there is a user with that email
@@ -70,10 +70,10 @@ const loginUser = async(req, res = response ) => {
 
         // check if there if matches de password input and database
         const validPassword = bcrypt.compareSync( password, user.password ); //compare passwords
-        if ( !validPassword ) { 
+        if ( !validPassword ) {
             return res.status(400).json({
                 ok: false,
-                msg: 'Check email or (password)' 
+                msg: 'Check email or (password)'
             });
         }
 
@@ -109,7 +109,9 @@ const revalidateToken = async (req, res = response ) => {
 
     res.json({
         ok: true,
-        token
+        token,
+        uid,
+        name
     })
 }
 
