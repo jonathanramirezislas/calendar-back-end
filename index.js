@@ -1,10 +1,6 @@
 const express = require('express');
 require('dotenv').config();
-const cors = require('cors');
-const corsOptions = {
-    origin: 'https://calendar-jonas.herokuapp.com',
-    optionsSuccessStatus: 200 
-  }
+
 const { dbConnection } = require('./database/config');
 
 
@@ -16,8 +12,7 @@ const app = express();
 dbConnection();
 
 
-// CORS ..alllow any ip from outside to access our endpoints
-app.use(cors(corsOptions))
+
 
 //Directorio publico 
 app.use(express.static('public'));
