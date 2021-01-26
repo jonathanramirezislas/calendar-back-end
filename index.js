@@ -1,7 +1,10 @@
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
-
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200,
+  }
 const { dbConnection } = require('./database/config');
 
 
@@ -14,7 +17,7 @@ dbConnection();
 
 
 // CORS ..alllow any ip from outside to access our endpoints
-app.use(cors())
+app.use(cors(corsOptions));
 
 //Directorio publico 
 app.use(express.static('public'));
