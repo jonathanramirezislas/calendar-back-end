@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config();
+const cors = require('cors');
 
 const { dbConnection } = require('./database/config');
 
@@ -12,9 +13,10 @@ const app = express();
 dbConnection();
 
 
+// CORS ..alllow any ip from outside to access our endpoints
+app.use(cors({ origin: true }));
 
-
-//Directorio publico 
+//Directorio publico
 app.use(express.static('public'));
 
 // Read and cast json inputs
