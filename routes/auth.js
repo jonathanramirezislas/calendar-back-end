@@ -20,7 +20,7 @@ router.post('/',
     check('email', 'El email es obligatorio').isEmail(),
     check('password', 'El password debe de contener minimo 6 caracteres').isLength({ min: 6 }),
     validatefields
-    ], 
+    ],
     loginUser );
 
 //create user
@@ -30,15 +30,12 @@ router.post('/new',
     check('email', 'El email es obligatorio').isEmail(),
     check('password', 'El password debe de contener minimo 6 caracteres').isLength({ min: 6 }),
     validatefields
-    ], 
+    ],
     createUser );
 
-// renew token 
-    router.get('/renew',
-    //middleware
-    validarJWT ,
-    revalidateToken );
+// renew token
+router.get('/renew',validarJWT ,revalidateToken );
 
-    
+
 
 module.exports = router;
