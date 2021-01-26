@@ -14,14 +14,9 @@ dbConnection();
 
 
 // CORS ..alllow any ip from outside to access our endpoints
-app.use(cors({ origin: true }));
+app.use(cors());
 
-app.use((req,res, next)=>{
-    res.setHeader('Access-Control-Allow-Origin',"*");
-    res.setHeader('Access-Control-Allow-Headers',"*");
-    res.header('Access-Control-Allow-Credentials', true);
-    next();
-});
+
 
 //Directorio publico
 app.use(express.static('public'));
